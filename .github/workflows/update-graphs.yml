@@ -1,0 +1,38 @@
+name: Update habit graphs
+
+on:
+  push:
+    paths:
+      - "config/**"
+      - "logs/**"
+      - "scripts/**"
+      - ".github/workflows/update-graphs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-graphs:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Generate graphs
+        run: python scripts/generate_graphs.py
+
+      - name: Commit generated SVG files
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Update habit graphs"
+          file_pattern: assets/*.svg
