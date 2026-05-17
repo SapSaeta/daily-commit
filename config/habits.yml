@@ -1,0 +1,48 @@
+categories:
+  physical:
+    name: Actividad física
+    habits:
+      - id: walk
+        name: Caminar / paseo
+      - id: workout
+        name: Entrenamiento
+      - id: core
+        name: Core
+      - id: mobility
+        name: Movilidad
+
+  study:
+    name: Estudio
+    habits:
+      - id: abap
+        name: ABAP / SAP
+      - id: course
+        name: Curso / tutorial
+      - id: reading
+        name: Lectura técnica
+      - id: practice
+        name: Práctica real
+
+  work:
+    name: Trabajo
+    habits:
+      - id: deep_work
+        name: Trabajo profundo
+      - id: tickets
+        name: Tickets avanzados
+      - id: documentation
+        name: Documentación
+      - id: no_distractions
+        name: Sin distracciones
+
+  nutrition:
+    name: Alimentación
+    habits:
+      - id: water
+        name: Agua suficiente
+      - id: protein
+        name: Proteína suficiente
+      - id: no_ultraprocessed
+        name: Sin ultraprocesados
+      - id: controlled_dinner
+        name: Cena controlada
