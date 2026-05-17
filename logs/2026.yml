@@ -1,0 +1,24 @@
+"2026-05-18":
+  physical:
+    walk: true
+    workout: false
+    core: true
+    mobility: false
+
+  study:
+    abap: true
+    course: true
+    reading: false
+    practice: true
+
+  work:
+    deep_work: true
+    tickets: true
+    documentation: false
+    no_distractions: false
+
+  nutrition:
+    water: true
+    protein: true
+    no_ultraprocessed: false
+    controlled_dinner: true
