@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HabitRepo</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="hero-card">
+      <div>
+        <p class="eyebrow">HabitRepo</p>
+        <h1>Registra tus hábitos como contribuciones.</h1>
+        <p class="subtitle">App web sencilla con estética GitHub dark, toque RPG y gráficos de hábitos tipo contribution graph.</p>
+      </div>
+      <button class="github-button" type="button">Conectar GitHub</button>
+    </section>
+
+    <section class="daily-card">
+      <p class="eyebrow">Registro de hoy</p>
+      <h2>Tu party diaria</h2>
+      <form id="habitForm" class="habit-form">
+        <label class="habit-row"><span><strong>Trabajo</strong><small>Foco, tickets y cierre claro</small></span><input id="work" type="range" min="0" max="4" value="2"><output>2</output></label>
+        <label class="habit-row"><span><strong>Aprendizaje</strong><small>ABAP, SAP, IA, MCP o Codex</small></span><input id="study" type="range" min="0" max="4" value="2"><output>2</output></label>
+        <label class="habit-row"><span><strong>Salud</strong><small>Paseo, fuerza, core o movilidad</small></span><input id="physical" type="range" min="0" max="4" value="2"><output>2</output></label>
+        <label class="habit-row"><span><strong>Energía</strong><small>Agua, comida, descanso y móvil</small></span><input id="energy" type="range" min="0" max="4" value="2"><output>2</output></label>
+        <button class="commit-button" type="submit">Commit del día</button>
+      </form>
+    </section>
+
+    <section class="graph-card">
+      <div class="graph-header">
+        <div><p class="eyebrow">Contribution graph</p><h2>Mapa anual</h2></div>
+        <div class="stats"><span><strong id="currentStreak">0</strong> racha</span><span><strong id="activeDays">0</strong> días activos</span></div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-area="general" type="button">General</button>
+        <button class="tab" data-area="work" type="button">Trabajo</button>
+        <button class="tab" data-area="study" type="button">Aprendizaje</button>
+        <button class="tab" data-area="physical" type="button">Salud</button>
+        <button class="tab" data-area="energy" type="button">Energía</button>
+      </div>
+      <div class="github-graph-frame">
+        <div class="month-labels" id="monthLabels"></div>
+        <div class="graph-body">
+          <div class="weekday-labels"><span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span></div>
+          <div id="contributionGrid" class="contribution-grid"></div>
+        </div>
+        <div class="legend"><span>Less</span><i class="level-0"></i><i class="level-1"></i><i class="level-2"></i><i class="level-3"></i><i class="level-4"></i><span>More</span></div>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
