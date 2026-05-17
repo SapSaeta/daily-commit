@@ -1,0 +1,60 @@
+name: Daily habit log
+description: Registra tus hábitos diarios desde GitHub Issues
+title: "Daily Log - YYYY-MM-DD"
+labels: ["daily-log"]
+body:
+  - type: input
+    id: date
+    attributes:
+      label: Fecha
+      description: Usa formato YYYY-MM-DD
+      placeholder: "2026-05-18"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: physical
+    attributes:
+      label: Actividad física
+      options:
+        - label: Caminar / paseo
+        - label: Entrenamiento
+        - label: Core
+        - label: Movilidad
+
+  - type: checkboxes
+    id: study
+    attributes:
+      label: Estudio
+      options:
+        - label: ABAP / SAP
+        - label: Curso / tutorial
+        - label: Lectura técnica
+        - label: Práctica real
+
+  - type: checkboxes
+    id: work
+    attributes:
+      label: Trabajo
+      options:
+        - label: Trabajo profundo
+        - label: Tickets avanzados
+        - label: Documentación
+        - label: Sin distracciones
+
+  - type: checkboxes
+    id: nutrition
+    attributes:
+      label: Alimentación
+      options:
+        - label: Agua suficiente
+        - label: Proteína suficiente
+        - label: Sin ultraprocesados
+        - label: Cena controlada
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notas
+      description: Opcional
+      placeholder: Comentario breve del día
