@@ -1,48 +1,48 @@
 categories:
-  physical:
-    name: Actividad física
-    habits:
-      - id: walk
-        name: Caminar / paseo
-      - id: workout
-        name: Entrenamiento
-      - id: core
-        name: Core
-      - id: mobility
-        name: Movilidad
-
-  study:
-    name: Estudio
-    habits:
-      - id: abap
-        name: ABAP / SAP
-      - id: course
-        name: Curso / tutorial
-      - id: reading
-        name: Lectura técnica
-      - id: practice
-        name: Práctica real
-
   work:
-    name: Trabajo
+    name: Trabajo ABAP y foco
     habits:
       - id: deep_work
-        name: Trabajo profundo
+        name: Bloque de trabajo profundo sin móvil
       - id: tickets
-        name: Tickets avanzados
-      - id: documentation
-        name: Documentación
-      - id: no_distractions
-        name: Sin distracciones
+        name: Avance real en tickets/incidencias
+      - id: code_quality
+        name: Código o análisis limpio y documentado
+      - id: closure
+        name: Cierre del día con estado claro
+
+  study:
+    name: Aprendizaje técnico
+    habits:
+      - id: abap_sap
+        name: ABAP Cloud / SAP / HR
+      - id: ai_tools
+        name: IA, MCP, n8n, Codex o Claude Code
+      - id: practice
+        name: Práctica real en repo/proyecto
+      - id: notes
+        name: Notas o resumen útil
+
+  physical:
+    name: Salud física
+    habits:
+      - id: walk
+        name: Paseo/caminar
+      - id: workout
+        name: Entrenamiento de fuerza
+      - id: core_mobility
+        name: Core o movilidad
+      - id: posture
+        name: Pausas activas/postura
 
   nutrition:
-    name: Alimentación
+    name: Energía y hábitos base
     habits:
       - id: water
         name: Agua suficiente
-      - id: protein
-        name: Proteína suficiente
-      - id: no_ultraprocessed
-        name: Sin ultraprocesados
-      - id: controlled_dinner
-        name: Cena controlada
+      - id: food_quality
+        name: Comida razonablemente limpia
+      - id: sleep
+        name: Sueño/descanso cuidado
+      - id: screen_control
+        name: Control de móvil/redes
