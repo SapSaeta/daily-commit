@@ -1,0 +1,70 @@
+name: Log day
+
+on:
+  workflow_dispatch:
+    inputs:
+      date:
+        description: "Fecha (YYYY-MM-DD)"
+        required: true
+        type: string
+      physical:
+        description: "Actividad física (0-4)"
+        required: true
+        default: "0"
+        type: choice
+        options: ["0", "1", "2", "3", "4"]
+      study:
+        description: "Estudio (0-4)"
+        required: true
+        default: "0"
+        type: choice
+        options: ["0", "1", "2", "3", "4"]
+      work:
+        description: "Trabajo (0-4)"
+        required: true
+        default: "0"
+        type: choice
+        options: ["0", "1", "2", "3", "4"]
+      nutrition:
+        description: "Alimentación (0-4)"
+        required: true
+        default: "0"
+        type: choice
+        options: ["0", "1", "2", "3", "4"]
+
+permissions:
+  contents: write
+
+jobs:
+  log-day:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Save daily scores
+        env:
+          LOG_DATE: ${{ inputs.date }}
+          PHYSICAL: ${{ inputs.physical }}
+          STUDY: ${{ inputs.study }}
+          WORK: ${{ inputs.work }}
+          NUTRITION: ${{ inputs.nutrition }}
+        run: python scripts/log_day.py
+
+      - name: Generate graphs
+        run: python scripts/generate_graphs.py
+
+      - name: Commit log and graphs
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Log day ${{ inputs.date }}"
+          file_pattern: logs/*.yml assets/*.svg
