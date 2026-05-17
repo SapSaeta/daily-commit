@@ -1,0 +1,53 @@
+name: Process daily habit log
+
+on:
+  issues:
+    types: [opened, edited]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  process-daily-log:
+    if: contains(github.event.issue.labels.*.name, 'daily-log')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install pyyaml
+
+      - name: Update log from issue
+        env:
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: python scripts/update_log_from_issue.py
+
+      - name: Generate graphs
+        run: python scripts/generate_graphs.py
+
+      - name: Commit updated logs and graphs
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Process daily habit log #${{ github.event.issue.number }}"
+          file_pattern: logs/*.yml assets/*.svg
+
+      - name: Comment confirmation
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: 'Daily habit log processed. The YAML log and SVG graphs have been updated.'
+            })
