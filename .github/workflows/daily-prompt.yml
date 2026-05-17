@@ -41,5 +41,5 @@ jobs:
               repo: context.repo.repo,
               title,
               labels: ['daily-prompt'],
-              body: `Responde con 4 números del 0 al 4, separados por espacios:\n\n\`actividad estudio trabajo alimentación\`\n\nEjemplo:\n\n\`3 4 2 3\`\n\nEscala:\n\n- 0 = nada\n- 1 = poco\n- 2 = regular\n- 3 = bien\n- 4 = perfecto\n\nCuando respondas, se actualizarán los gráficos automáticamente.`
+              body: `Responde con 4 números del 0 al 4, separados por espacios:\n\n\`trabajo aprendizaje salud energía\`\n\nEjemplo:\n\n\`3 2 4 2\`\n\nQué mide cada número:\n\n1. **Trabajo ABAP y foco**: trabajo profundo, avance real en tickets, análisis/código limpio y cierre claro del día.\n2. **Aprendizaje técnico**: ABAP/SAP/HR, IA, MCP, n8n, Codex, Claude Code, práctica real o notas útiles.\n3. **Salud física**: paseo, fuerza, core/movilidad o pausas activas.\n4. **Energía y hábitos base**: agua, comida razonable, descanso y control de móvil/redes.\n\nEscala:\n\n- 0 = nada\n- 1 = poco\n- 2 = regular\n- 3 = bien\n- 4 = perfecto\n\nCuando respondas, se actualizarán los gráficos automáticamente.`
             });
