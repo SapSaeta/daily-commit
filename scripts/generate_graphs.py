@@ -22,8 +22,6 @@ COLORS = ["#161b22", "#0e4429", "#006d32", "#26a641", "#39d353"]
 TEXT = "#7d8590"
 BORDER = "#30363d"
 BG = "#0d1117"
-
-DAYS = ["Mon", "Wed", "Fri"]
 MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
 
 
@@ -40,17 +38,36 @@ def all_dates_for_year(year: int) -> list[dt.date]:
     return [start + dt.timedelta(days=index) for index in range(53 * 7)]
 
 
+def value_to_score(value: Any) -> float | None:
+    if value is None:
+        return None
+    if isinstance(value, bool):
+        return 1.0 if value else 0.0
+    if isinstance(value, int | float):
+        return max(0.0, min(float(value), 4.0)) / 4.0
+    return None
+
+
 def score_day(day_data: dict[str, Any], category: str | None, categories: dict[str, Any]) -> float | None:
-    values: list[bool] = []
+    values: list[float] = []
 
     selected = categories.keys() if category is None else [category]
     for category_id in selected:
-        category_config = categories.get(category_id, {})
-        habit_ids = [habit["id"] for habit in category_config.get("habits", [])]
-        category_log = day_data.get(category_id, {}) if isinstance(day_data, dict) else {}
-        for habit_id in habit_ids:
-            if habit_id in category_log:
-                values.append(bool(category_log[habit_id]))
+        category_log = day_data.get(category_id) if isinstance(day_data, dict) else None
+
+        # Simple mode: physical: 3, study: 4, work: 2, nutrition: 1
+        simple_score = value_to_score(category_log)
+        if simple_score is not None:
+            values.append(simple_score)
+            continue
+
+        # Detailed mode: physical: { walk: true, workout: false, ... }
+        if isinstance(category_log, dict):
+            category_config = categories.get(category_id, {})
+            habit_ids = [habit["id"] for habit in category_config.get("habits", [])]
+            habit_values = [bool(category_log[habit_id]) for habit_id in habit_ids if habit_id in category_log]
+            if habit_values:
+                values.append(sum(habit_values) / len(habit_values))
 
     if not values:
         return None
@@ -84,7 +101,7 @@ def render_graph(title: str, category: str | None, year: int, categories: dict[s
         opacity = "1" if current_date.year == year else "0.35"
         label_score = "No data" if score is None else f"{round(score * 100)}%"
         cells.append(
-            f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="2" ry="2" fill="{color}" opacity="{opacity}">' 
+            f'<rect x="{x}" y="{y}" width="{CELL}" height="{CELL}" rx="2" ry="2" fill="{color}" opacity="{opacity}">'
             f'<title>{key}: {label_score}</title></rect>'
         )
 
