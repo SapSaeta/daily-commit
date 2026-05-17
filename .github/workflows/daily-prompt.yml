@@ -1,0 +1,45 @@
+name: Daily prompt
+
+on:
+  schedule:
+    - cron: "0 20 * * *"
+  workflow_dispatch:
+
+permissions:
+  issues: write
+
+jobs:
+  create-daily-prompt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create daily issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const now = new Date();
+            const madrid = new Intl.DateTimeFormat('en-CA', {
+              timeZone: 'Europe/Madrid',
+              year: 'numeric',
+              month: '2-digit',
+              day: '2-digit'
+            }).format(now);
+
+            const title = `Daily Commit - ${madrid}`;
+            const { data: existing } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: 'daily-prompt',
+              state: 'open'
+            });
+
+            const alreadyExists = existing.some(issue => issue.title === title);
+            if (alreadyExists) return;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              labels: ['daily-prompt'],
+              body: `Responde con 4 números del 0 al 4, separados por espacios:\n\n\`actividad estudio trabajo alimentación\`\n\nEjemplo:\n\n\`3 4 2 3\`\n\nEscala:\n\n- 0 = nada\n- 1 = poco\n- 2 = regular\n- 3 = bien\n- 4 = perfecto\n\nCuando respondas, se actualizarán los gráficos automáticamente.`
+            });
